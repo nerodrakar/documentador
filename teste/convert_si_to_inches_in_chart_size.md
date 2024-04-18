@@ -1,0 +1,87 @@
+---
+layout: default
+title: convert_si_to_inches_in_chart_size
+grand_parent: Framework
+parent: Common Library functions
+nav_order: 1
+has_toc: false
+---
+
+<h3>convert_si_to_inches_in_chart_size</h3>
+
+<br>
+
+<p align = "justify">
+    This function convert figure dimensions from meters to inches.
+    
+    Args:
+        width (float): figure width in SI units
+        height (float): figure height in SI units
+
+    Returns:
+        width (float): figure width in inches units
+        height (float): figure height in inches units
+</p>
+
+```python
+convert_si_to_inches_in_chart_size(width, height)
+```
+
+Input variables
+{: .label .label-yellow }
+
+<table style = "width:100%">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tr>
+        <td><code>width</code></td>
+        <td>Description of the argument</td>
+        <td>Type of the argument</td>
+    </tr>
+    <tr>
+        <td><code>height</code></td>
+        <td>Description of the argument</td>
+        <td>Type of the argument</td>
+    </tr>
+</table>
+
+Output variables
+{: .label .label-yellow }
+
+<table style = "width:100%">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tr>
+        <td><code>width</code></td>
+        <td>Description of the return value</td>
+        <td>Type of the return value</td>
+    </tr>
+</table>
+
+Example 1
+{: .label .label-blue }
+
+<p align = "justify">
+    <i>
+        Use the <code>convert_si_to_inches_in_chart_size</code> function to perform a task.
+    </i>
+</p>
+
+```python
+# Example code goes here
+```
+
+```bash
+# Example output goes here
+```
+
