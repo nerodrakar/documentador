@@ -5,12 +5,11 @@ def read_python_file(file_path):
 
     with open(file_path, 'r') as file:
         file_content = file.read()
-        function_pattern = re.compile(r'def\s+(\w+)\((.*?)\):\s*"""(.*?)"""', re.DOTALL)
+        function_pattern = re.compile(r'def\s+(\w+)\((.*?)\):(?:\s*"""(.*?)""")?', re.DOTALL)
         functions = function_pattern.findall(file_content)
 
         for func_name, func_args, func_description in functions:
-            # Verifica se a função possui texto de descrição
-            if func_description.strip():
+            if func_description:  # Verifica se há uma descrição
                 args_list = [arg.strip() for arg in func_args.split(',')]
                 description = func_description.strip().split('\n\n')[0]
                 description_args = re.findall(r'\n\s*([a-zA-Z0-9_]+)\s*\(([^\)]+)\):\s*([^\n]+)', func_description)
@@ -169,7 +168,7 @@ def generate_md_files(functions_info, output_folder):
 
 file_path = "EASYPLOT.py"
 functions_info = read_python_file(file_path)
-print(functions_info['func'])
+print(functions_info['line_chart'])
 
 output_file = 'teste/'
 generate_md_files(functions_info, output_file)
