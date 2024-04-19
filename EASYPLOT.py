@@ -449,9 +449,6 @@ def pizza_chart(**kwargs):
     VALUES = list(data['VALUES'])
     # Creating autocpt arguments
     def func(pct, allvalues):
-        """
-        See documentation in: https://wmpjrufg.github.io/EASYPLOTPY/001-5.html
-        """
         absolute = int(pct / 100.*np.sum(allvalues))
         return "{:.2f}%\n({:d})".format(pct, absolute)
         

@@ -9,32 +9,34 @@ def read_python_file(file_path):
         functions = function_pattern.findall(file_content)
 
         for func_name, func_args, func_description in functions:
-            args_list = [arg.strip() for arg in func_args.split(',')]
-            description = func_description.strip().split('\n\n')[0]
-            description_args = re.findall(r'\n\s*([a-zA-Z0-9_]+)\s*\(([^\)]+)\):\s*([^\n]+)', func_description)
-            extracted_args = {}
-            for arg_name, arg_type, arg_description in description_args:
-                extracted_args[arg_name] = {
-                    'type': arg_type.strip(),
-                    'description': arg_description.strip()
-                }
-
-            description_returns = re.findall(r'Returns:\s+([^"]+)', func_description, re.DOTALL)
-            extracted_returns = {}
-            for ret in description_returns:
-                ret_info = re.findall(r'\s*([a-zA-Z0-9_]+)\s*\(([^\)]+)\):\s*([^\n]+)', ret)
-                for ret_name, ret_type, ret_description in ret_info:
-                    extracted_returns[ret_name] = {
-                        'type': ret_type.strip(),
-                        'description': ret_description.strip()
+            # Verifica se a função possui texto de descrição
+            if func_description.strip():
+                args_list = [arg.strip() for arg in func_args.split(',')]
+                description = func_description.strip().split('\n\n')[0]
+                description_args = re.findall(r'\n\s*([a-zA-Z0-9_]+)\s*\(([^\)]+)\):\s*([^\n]+)', func_description)
+                extracted_args = {}
+                for arg_name, arg_type, arg_description in description_args:
+                    extracted_args[arg_name] = {
+                        'type': arg_type.strip(),
+                        'description': arg_description.strip()
                     }
 
-            functions_dict[func_name] = {
-                'description': description,
-                'args': args_list,
-                'extracted_args': extracted_args,
-                'return': extracted_returns
-            }
+                description_returns = re.findall(r'Returns:\s+([^"]+)', func_description, re.DOTALL)
+                extracted_returns = {}
+                for ret in description_returns:
+                    ret_info = re.findall(r'\s*([a-zA-Z0-9_]+)\s*\(([^\)]+)\):\s*([^\n]+)', ret)
+                    for ret_name, ret_type, ret_description in ret_info:
+                        extracted_returns[ret_name] = {
+                            'type': ret_type.strip(),
+                            'description': ret_description.strip()
+                        }
+
+                functions_dict[func_name] = {
+                    'description': description,
+                    'args': args_list,
+                    'extracted_args': extracted_args,
+                    'return': extracted_returns
+                }
 
     return functions_dict
 
