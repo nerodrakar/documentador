@@ -1,0 +1,79 @@
+---
+layout: default
+title: func
+grand_parent: Framework
+parent: Common Library functions
+nav_order: 1
+has_toc: false
+---
+
+<h3>func</h3>
+
+<br>
+
+<p align = "justify">
+    See documentation in: https://wmpjrufg.github.io/EASYPLOTPY/001-5.html
+</p>
+
+```python
+func(pct, allvalues)
+```
+
+Input variables
+{: .label .label-yellow }
+
+<table style = "width:100%">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tr>
+        <td><code>pct</code></td>
+        <td>Description not available.</td>
+        <td>None</td>
+    </tr>
+    <tr>
+        <td><code>allvalues</code></td>
+        <td>Description not available.</td>
+        <td>None</td>
+    </tr>
+</table>
+
+Output variables
+{: .label .label-yellow }
+
+<table style = "width:100%">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tr>
+        <td><code>None</code></td>
+        <td>This function does not return any value.</td>
+        <td>None</td>
+    </tr>
+</table>
+
+Example 1
+{: .label .label-blue }
+
+<p align = "justify">
+    <i>
+        Use the <code>func</code> function to perform a task.
+    </i>
+</p>
+
+```python
+# Example code goes here
+```
+
+```bash
+# Example output goes here
+```
+
