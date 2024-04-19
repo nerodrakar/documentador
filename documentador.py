@@ -9,7 +9,7 @@ def read_python_file(file_path):
         functions = function_pattern.findall(file_content)
 
         for func_name, func_args, func_description in functions:
-            if func_description:  # Verifica se há uma descrição
+            if func_description:  
                 args_list = [arg.strip() for arg in func_args.split(',')]
                 description = func_description.strip().split('\n\n')[0]
                 description_args = re.findall(r'\n\s*([a-zA-Z0-9_]+)\s*\(([^\)]+)\):\s*([^\n]+)', func_description)
