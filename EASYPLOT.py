@@ -11,7 +11,7 @@ import joypy
 def convert_si_to_inches_in_chart_size(width, height):
     """ 
     This function convert figure dimensions from meters to inches.
-    
+
     Args:
         width (float): figure width in SI units
         height (float): figure height in SI units

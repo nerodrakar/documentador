@@ -1,5 +1,6 @@
 import re
 
+
 def read_python_file(file_path):
     functions_dict = {}
 
@@ -10,16 +11,38 @@ def read_python_file(file_path):
 
         for func_name, func_args, func_description in functions:
             args_list = [arg.strip() for arg in func_args.split(',')]
-            return_type = re.search(r'Returns:\s+(.*?)\s+', func_description, re.DOTALL)
-            return_type = return_type.group(1).strip() if return_type else None
+
+            # Extrair a descrição da função
+            description = func_description.strip().split('\n\n')[0]
+
+            # Extrair os argumentos da descrição
+            description_args = re.findall(r'\n\s*([a-zA-Z0-9_]+)\s*\(([^\)]+)\):\s*([^\n]+)', func_description)
+            extracted_args = {}
+            for arg_name, arg_type, arg_description in description_args:
+                extracted_args[arg_name] = {
+                    'type': arg_type.strip(),
+                    'description': arg_description.strip()
+                }
+
+            # Extrair os retornos da descrição
+            description_returns = re.findall(r'Returns:\s+([^"]+)', func_description, re.DOTALL)
+            extracted_returns = {}
+            for ret in description_returns:
+                ret_info = re.findall(r'\s*([a-zA-Z0-9_]+)\s*\(([^\)]+)\):\s*([^\n]+)', ret)
+                for ret_name, ret_type, ret_description in ret_info:
+                    extracted_returns[ret_name] = {
+                        'type': ret_type.strip(),
+                        'description': ret_description.strip()
+                    }
 
             functions_dict[func_name] = {
-                'description': func_description.strip(),
+                'description': description,
                 'args': args_list,
-                'return': return_type
+                'extracted_args': extracted_args,
+                'return': extracted_returns
             }
-
     return functions_dict
+
 
 
 def generate_md_files(functions_info, output_folder):
@@ -61,11 +84,27 @@ def generate_md_files(functions_info, output_folder):
             md_file.write('      </tr>\n')
             md_file.write('    </thead>\n')
 
-            for arg in func_info['args']:
+            if func_info['extracted_args']:
+                for arg_name, arg_info in func_info['extracted_args'].items():
+                    md_file.write('    <tr>\n')
+                    md_file.write(f'        <td><code>{arg_name}</code></td>\n')
+                    md_file.write(f'        <td>{arg_info["description"]}</td>\n')
+                    if arg_info["type"] == 'dict':
+                        md_file.write(f'        <td>dictionary</td>\n')
+                    elif arg_info["type"] == 'str':
+                        md_file.write(f'        <td>string</td>\n')
+                    elif arg_info["type"] == 'int':
+                        md_file.write(f'        <td>integer</td>\n')
+                    elif arg_info["type"] == 'bool':
+                        md_file.write(f'        <td>boolean</td>\n')
+                    else:
+                        md_file.write(f'        <td>{arg_info["type"]}</td>\n')
+                    md_file.write('    </tr>\n')
+            else:
                 md_file.write('    <tr>\n')
-                md_file.write(f'        <td><code>{arg}</code></td>\n')
-                md_file.write('        <td>Description of the argument</td>\n')
-                md_file.write('        <td>Type of the argument</td>\n')
+                md_file.write(f'        <td><code>None</code></td>\n')
+                md_file.write(f'        <td>This function does not receive any input.</td>\n')
+                md_file.write(f'        <td>None</td>\n')
                 md_file.write('    </tr>\n')
 
             md_file.write('</table>\n\n')
@@ -82,11 +121,19 @@ def generate_md_files(functions_info, output_folder):
             md_file.write('      </tr>\n')
             md_file.write('    </thead>\n')
 
-            md_file.write('    <tr>\n')
-            md_file.write(f'        <td><code>{func_info["return"]}</code></td>\n')
-            md_file.write('        <td>Description of the return value</td>\n')
-            md_file.write('        <td>Type of the return value</td>\n')
-            md_file.write('    </tr>\n')
+            if func_info['return']:
+                for ret_name, ret_info in func_info['return'].items():
+                    md_file.write('    <tr>\n')
+                    md_file.write(f'        <td><code>{ret_name}</code></td>\n')
+                    md_file.write(f'        <td>{ret_info["description"]}</td>\n')
+                    md_file.write(f'        <td>{ret_info["type"]}</td>\n')
+                    md_file.write('    </tr>\n')
+            else:
+                md_file.write('    <tr>\n')
+                md_file.write(f'        <td><code>None</code></td>\n')
+                md_file.write(f'        <td>This function does not return any value.</td>\n')
+                md_file.write(f'        <td>None</td>\n')
+                md_file.write('    </tr>\n')
 
             md_file.write('</table>\n\n')
 
@@ -106,6 +153,7 @@ def generate_md_files(functions_info, output_folder):
             md_file.write('```bash\n')
             md_file.write('# Example output goes here\n')
             md_file.write('```\n\n')
+
 
 
 # Teste
