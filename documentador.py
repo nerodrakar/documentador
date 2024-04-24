@@ -4,6 +4,7 @@ import re
 file_path = "EASYPLOT.py"
 output_file = 'teste/'
 
+
 def read_python_file(file_path):
     functions_dict = {}
 
