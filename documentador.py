@@ -1,5 +1,9 @@
 import re
 
+# Defina o caminho do arquivo Python que deseja documentar e a pasta de saída
+file_path = "EASYPLOT.py"
+output_file = 'teste/'
+
 def read_python_file(file_path):
     functions_dict = {}
 
@@ -170,9 +174,6 @@ def generate_md_files(functions_info, output_folder):
         nav_counter += 1
 
 if __name__ == '__main__':
-    file_path = "EASYPLOT.py"
     functions_info = read_python_file(file_path)
-
-    output_file = 'teste/'
     generate_md_files(functions_info, output_file)
     print(f'Arquivo Markdown gerado com sucesso: {output_file}')
