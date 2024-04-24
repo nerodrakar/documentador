@@ -3,7 +3,7 @@ layout: default
 title: keys_to_lower
 grand_parent: Framework
 parent: Common Library functions
-nav_order: 1
+nav_order: 3
 has_toc: false
 ---
 
@@ -13,6 +13,8 @@ has_toc: false
 
 <p align = "justify">
     This function converts the keys of a dictionary to lowercase.
+
+
 </p>
 
 ```python

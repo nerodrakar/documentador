@@ -3,7 +3,7 @@ layout: default
 title: line_chart
 grand_parent: Framework
 parent: Common Library functions
-nav_order: 1
+nav_order: 5
 has_toc: false
 ---
 
@@ -13,6 +13,8 @@ has_toc: false
 
 <p align = "justify">
     This function shows a Multiple lines in single chart.
+
+
 </p>
 
 ```python
@@ -78,7 +80,7 @@ Output variables
     </thead>
     <tr>
         <td><code>None</code></td>
-        <td>This function does not return any value.</td>
+        <td>The function displays the plot on the screen and saves it to the local folder of the <code>.ipynb</td>
         <td>None</td>
     </tr>
 </table>

@@ -3,7 +3,7 @@ layout: default
 title: histogram_chart
 grand_parent: Framework
 parent: Common Library functions
-nav_order: 1
+nav_order: 4
 has_toc: false
 ---
 
@@ -50,7 +50,7 @@ Output variables
     </thead>
     <tr>
         <td><code>None</code></td>
-        <td>This function does not return any value.</td>
+        <td>The function displays the plot on the screen and saves it to the local folder of the <code>.ipynb</td>
         <td>None</td>
     </tr>
 </table>

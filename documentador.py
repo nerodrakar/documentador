@@ -9,9 +9,11 @@ def read_python_file(file_path):
         functions = function_pattern.findall(file_content)
 
         for func_name, func_args, func_description in functions:
-            if func_description:  
+            if func_description:
+                # Modificado para capturar apenas a primeira parte da descrição
+                description = func_description.strip().split('    ')[0]
+
                 args_list = [arg.strip() for arg in func_args.split(',')]
-                description = func_description.strip().split('\n\n')[0]
                 description_args = re.findall(r'\n\s*([a-zA-Z0-9_]+)\s*\(([^\)]+)\):\s*([^\n]+)', func_description)
                 extracted_args = {}
                 for arg_name, arg_type, arg_description in description_args:
@@ -41,6 +43,7 @@ def read_python_file(file_path):
 
 
 def generate_md_files(functions_info, output_folder):
+    nav_counter = 1
     for func_name, func_info in functions_info.items():
         md_filename = f'{output_folder}/{func_name}.md'
         with open(md_filename, 'w') as md_file:
@@ -49,7 +52,7 @@ def generate_md_files(functions_info, output_folder):
             md_file.write(f'title: {func_name}\n')
             md_file.write('grand_parent: Framework\n')
             md_file.write('parent: Common Library functions\n')
-            md_file.write('nav_order: 1\n')
+            md_file.write(f'nav_order: {nav_counter}\n')
             md_file.write('has_toc: false\n')
             md_file.write('---\n\n')
 
@@ -142,7 +145,7 @@ def generate_md_files(functions_info, output_folder):
             else:
                 md_file.write('    <tr>\n')
                 md_file.write(f'        <td><code>None</code></td>\n')
-                md_file.write(f'        <td>This function does not return any value.</td>\n')
+                md_file.write(f'        <td>The function displays the plot on the screen and saves it to the local folder of the <code>.ipynb</td>\n')
                 md_file.write(f'        <td>None</td>\n')
                 md_file.write('    </tr>\n')
 
@@ -164,14 +167,12 @@ def generate_md_files(functions_info, output_folder):
             md_file.write('```bash\n')
             md_file.write('# Example output goes here\n')
             md_file.write('```\n\n')
+        nav_counter += 1
 
+if __name__ == '__main__':
+    file_path = "EASYPLOT.py"
+    functions_info = read_python_file(file_path)
 
-file_path = "EASYPLOT.py"
-functions_info = read_python_file(file_path)
-print(functions_info['line_chart'])
-
-output_file = 'teste/'
-generate_md_files(functions_info, output_file)
-print(f'Arquivo Markdown gerado com sucesso: {output_file}')
-
-
+    output_file = 'teste/'
+    generate_md_files(functions_info, output_file)
+    print(f'Arquivo Markdown gerado com sucesso: {output_file}')

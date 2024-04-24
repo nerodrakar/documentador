@@ -13,6 +13,8 @@ has_toc: false
 
 <p align = "justify">
     This function convert figure dimensions from meters to inches.
+
+
 </p>
 
 ```python
