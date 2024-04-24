@@ -11,14 +11,14 @@ import joypy
 def convert_si_to_inches_in_chart_size(width, height):
     """ 
     This function convert figure dimensions from meters to inches.
-
+    
     Args:
-        width (float): figure width in SI units
-        height (float): figure height in SI units
+        width (Float): figure width in SI units
+        height (Float): figure height in SI units
 
     Returns:
-        width (float): figure width in inches units
-        height (float): figure height in inches units
+        width (Float): figure width in inches units
+        height (Float): figure height in inches units
     """
 
     # Converting dimensions
@@ -33,9 +33,9 @@ def save_chart_in_folder(name, extension, dots_per_inch):
     This function saves graphics according to the selected extension.
 
     Args:
-        name (str): Path + name figure
-        extension (str): File extension
-        dots_per_inch (int): The resolution in dots per inch
+        name (String): Path + name figure
+        extension (String): File extension
+        dots_per_inch (Integer): The resolution in dots per inch
 
     Returns:
         None
@@ -50,21 +50,41 @@ def save_chart_in_folder(name, extension, dots_per_inch):
 
 def keys_to_lower(d):
     """
-    This function converts the keys of a dictionary to lowercase.
+    This function converts the keys of a Dictionary to lowercase.
 
     Args:
-        d (dict): Dictionary
+        d (Dictionary): Dataset
 
     Returns:
-        d (dict): Dictionary with keys in lowercase
+        d (Dictionary): Dataset with keys in lowercase
     """
-    
+
     return {key.lower(): value for key, value in d.items()}
 
 
 def histogram_chart(**kwargs):
     """
-    See documentation in: https://wmpjrufg.github.io/EASYPLOTPY/001-1.html
+    This function shows a Boxplot and Histogram in a single chart.
+
+    Args:
+        plot_setup (Dictionary): Setup chart Dictionary with the following keys:
+            name (String): Path + name figure (key required in plot_setup)
+            width (Float): figure width in SI units (key required in plot_setup)
+            height (Float): figure height in SI units (key required in plot_setup)
+            extension (String): File extension (key required in plot_setup)
+            dots per inch (Integer): The resolution in dots per inch (key required in plot_setup)
+            x axis label (String): x axis label (key required in plot_setup)
+            x axis size (Integer): x axis size (key required in plot_setup)
+            y axis label (String): y axis label (key required in plot_setup)
+            y axis size (Integer): y axis size (key required in plot_setup)
+            axises color (String): Axises color (key required in plot_setup)
+            labels size (Integer): Labels size (key required in plot_setup)
+            labels color (String): Labels color (key required in plot_setup)
+            chart color (String): Chart color (key required in plot_setup)
+            bins (Integer): Range representing the width of a single bar (key required in plot_setup)
+            
+    Returns:
+        None
     """
 
     # Setup
@@ -80,7 +100,7 @@ def histogram_chart(**kwargs):
     axises_color = plot_setup['axises color']
     labels_size = plot_setup['labels size']     
     labels_color = plot_setup['labels color']
-    ChART_color = plot_setup['chart color']
+    chart_color = plot_setup['chart color']
     BINS = int(plot_setup['bins']) 
     # kDE = plot_setup['kDE']
     dots_per_inch = plot_setup['dots per inch'] 
@@ -95,60 +115,63 @@ def histogram_chart(**kwargs):
     [w, h] = convert_si_to_inches_in_chart_size(w, h)
     sns.set(style = 'ticks')
     fig, (ax_BOX, ax_hIST) = plt.subplots(2, figsize = (w, h), sharex = True, gridspec_kw = {'height_ratios': (.15, .85)})
-    sns.boxplot(data = data, x = COLUMN, ax = ax_BOX, color = ChART_color)
-    sns.histplot(data = data, x = COLUMN, ax = ax_hIST, color = ChART_color, bins = BINS)
+    sns.boxplot(data = data, x = COLUMN, ax = ax_BOX, color = chart_color)
+    sns.histplot(data = data, x = COLUMN, ax = ax_hIST, color = chart_color, bins = BINS)
     ax_BOX.set(yticks = [])
     ax_BOX.set(xlabel = '')
     FONT = {'fontname': 'DejaVu Sans',
             'color':  labels_color,
             'weight': 'normal',
             'size': labels_size}
-    ax_hIST.set_xlabel(xlabel = x_axis_label, fontdict = FONT)
-    ax_hIST.set_ylabel(ylabel = y_axis_label, fontdict = FONT)
+    ax_hIST.set_xlabel(xlabel = x_axis_label, fontDictionary = FONT)
+    ax_hIST.set_ylabel(ylabel = y_axis_label, fontDictionary = FONT)
     ax_hIST.tick_params(axis = 'x', labelsize = x_axis_size, colors = axises_color)
     ax_hIST.tick_params(axis = 'y', labelsize = y_axis_size, colors = axises_color)
     plt.grid()
     sns.despine(ax = ax_hIST)
     sns.despine(ax = ax_BOX, left = True)
     plt.tight_layout()
-    
     # Save figure
     save_chart_in_folder(name, extension, dots_per_inch)
+    
+    # Show figure
+    plt.show()
+
 
 
 def line_chart(**kwargs):
     """
-    This function shows a Multiple lines in single chart.
+    This function shows a multiple lines in single chart.
 
     Args:
-        plot_setup (dict): Setup chart dictionary with the following keys:
-            name (str): Path + name figure
-            width (float): figure width in SI units
-            height (float): figure height in SI units
-            extension (str): File extension
-            dots_per_inch (int): The resolution in dots per inch
-            marker (list): List of markers
-            marker size (list): List of marker sizes
-            line width (list): List of line widths
-            line style (list): List of line styles
-            y axis label (str): y axis label
-            x axis label (str): x axis label
-            labels size (int): Labels size
-            labels color (str): Labels color
-            x axis size (int): x axis size
-            y axis size (int): y axis size
-            axises color (str): Axises color
-            x limit (list): x axis limits
-            y limit (list): y axis limits
-            chart color (list): List of chart colors
-            on grid? (bool): Grid on or off
-            y log (bool): y log scale
-            x log (bool): x log scale
-            legend (list): List of legends
-            legend location (str): Legend location
-            size legend (int): Legend size
+        plot_setup (Dictionary): Setup chart Dictionary with the following keys:
+            name (String): Path + name figure (key required in plot_setup)
+            width (Float): figure width in SI units (key required in plot_setup)
+            height (Float): figure height in SI units (key required in plot_setup)
+            extension (String): File extension (key required in plot_setup)
+            dots_per_inch (Integer): The resolution in dots per inch (key required in plot_setup)
+            marker (List): List of markers. See <a href="https://matplotlib.org/stable/gallery/lines_bars_and_markers/marker_reference.html#sphx-glr-gallery-lines-bars-and-markers-marker-reference-py" target="_blank">gallery</a> (key required in plot_setup)
+            marker size (List): List of marker sizes (key required in plot_setup)
+            line width (List): List of line widths (key required in plot_setup)
+            line style (List): List of line styles. See <a href="https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html" target="_blank">gallery</a> (key required in plot_setup) 
+            y axis label (String): y axis label (key required in plot_setup)
+            x axis label (String): x axis label (key required in plot_setup)
+            labels size (Integer): Labels size (key required in plot_setup)
+            labels color (String): Labels color (key required in plot_setup)
+            x axis size (Integer): x axis size (key required in plot_setup)
+            y axis size (Integer): y axis size (key required in plot_setup)
+            axises color (String): Axises color (key required in plot_setup)
+            x limit (List): x axis limits (key required in plot_setup)
+            y limit (List): y axis limits (key required in plot_setup)
+            chart color (List): List of chart colors (key required in plot_setup)
+            on grid? (Boolean): Grid on or off (key required in plot_setup)
+            y log (Boolean): y log scale (key required in plot_setup)
+            x log (Boolean): x log scale (key required in plot_setup)
+            legend (List): List of legends (key required in plot_setup)
+            legend location (String): Legend location (key required in plot_setup)
+            size legend (Integer): Legend size (key required in plot_setup)
 
-    Return:
+    Returns:
         None
     """
 
@@ -181,10 +204,9 @@ def line_chart(**kwargs):
     loc_legend = plot_setup['legend location']
     size_legend = plot_setup['size legend']
 
-    # dataset and others information
+    # dataset
     dataset = kwargs.get('dataset')
-    dataset = keys_to_lower(dataset)
-    data = dataset['dataset']
+    data = keys_to_lower(dataset)
     x_dataset = []
     y_dataset = []
     number_of_plots = int(len(data) / 2)
@@ -193,14 +215,13 @@ def line_chart(**kwargs):
         y_column_name = f'y{I}'
         x_dataset.append(data[x_column_name])
         y_dataset.append(data[y_column_name])
-    
 
     # Plot
     w, h = convert_si_to_inches_in_chart_size(w, h)
     _, ax = plt.subplots(1, 1, figsize = (w, h), sharex=True)
     for k in range(number_of_plots):
         if len(legend) == 1:
-            if legend[0] == None:
+            if legend[0] is None:
                 ax.plot(x_dataset[k],
                         y_dataset[k],
                         marker=marker[k],
@@ -226,9 +247,9 @@ def line_chart(**kwargs):
                     markersize=marker_size[k],
                     color=colors[k],
                     label=legend[k])
-    if x_limit != None:
+    if x_limit is not None:
         plt.xlim(x_limit[0], x_limit[1])
-    if y_limit != None:
+    if y_limit is not None:
         plt.ylim(y_limit[0], y_limit[1])
     if y_log_scale:
         ax.semilogy()
@@ -238,14 +259,14 @@ def line_chart(**kwargs):
             'color':  labels_color,
             'weight': 'normal',
             'size': labels_size}
-    ax.set_ylabel(y_axis_label, fontdict = font)
-    ax.set_xlabel(x_axis_label, fontdict = font)
+    ax.set_ylabel(y_axis_label, fontdict=font)
+    ax.set_xlabel(x_axis_label, fontdict=font)
     ax.tick_params(axis='x', labelsize=x_axis_size, colors=axises_color)
     ax.tick_params(axis='y', labelsize=y_axis_size, colors=axises_color)
-    if grid == True:
+    if grid is True:
         ax.grid(color='grey', linestyle='-.', linewidth=1, alpha=0.20)
     if len(legend) == 1:
-        if legend[0] == None:
+        if legend[0] is None:
             pass
         else:
             plt.legend(loc=loc_legend,
@@ -254,10 +275,11 @@ def line_chart(**kwargs):
         plt.legend(loc=loc_legend,
                    prop={'size': size_legend})
     plt.tight_layout()
-    plt.show()
 
     # Save figure
     save_chart_in_folder(name, extension, dots_per_inch)
+
+    plt.show()
 
 
 def scatter_chart(**kwargs):    
@@ -289,7 +311,7 @@ def scatter_chart(**kwargs):
 
     # data
     # data = dataset['dataset']
-    # data_nameS = list(data.columns)
+    # data_nameS = List(data.columns)
     # data_nameS = [i.upper() for i in data_nameS]
     # data.columns = data_nameS
     # X = data['X']
@@ -313,7 +335,7 @@ def scatter_chart(**kwargs):
     w, h = convert_si_to_inches_in_chart_size(w, h)
     fig, ax = plt.subplots(1, 1, figsize=(w, h), sharex=True)
     
-    if isinstance(color_map, str):
+    if isinstance(color_map, String):
         scatter_plots = []
         for k in range(number_of_plots):
             scatter_plots.append(ax.scatter(x_dataset[k], y_dataset[k], marker='o', s=marker_size, cmap=color_map))
@@ -334,8 +356,8 @@ def scatter_chart(**kwargs):
             'color':  labels_color,
             'weight': 'normal',
             'size': labels_size}
-    ax.set_ylabel(y_axis_label, fontdict = FONT)
-    ax.set_xlabel(x_axis_label, fontdict = FONT)   
+    ax.set_ylabel(y_axis_label, fontDictionary = FONT)
+    ax.set_xlabel(x_axis_label, fontDictionary = FONT)   
     ax.tick_params(axis = 'x', labelsize = x_axis_size, colors = axises_color, labelrotation = 0, direction = 'out', which = 'both', length = 10)
     ax.tick_params(axis = 'y', labelsize = y_axis_size, colors = axises_color)
     if grid == True:
@@ -374,12 +396,12 @@ def bar_chart(**kwargs):
     
     # data
     data = dataset['dataset']
-    data_nameS = list(data.columns)
+    data_nameS = List(data.columns)
     data_nameS = [i.upper() for i in data_nameS]
     data.columns = data_nameS
-    X = list(data['X'])
+    X = List(data['X'])
     Y = data.drop(['X'], axis = 1, inplace = False)
-    legend = list(Y.columns)
+    legend = List(Y.columns)
     legend = [i.lower() for i in legend]
     Y.columns = legend
     N_L, N_C = Y.shape
@@ -392,13 +414,13 @@ def bar_chart(**kwargs):
     POS = np.arange(len(X))
     
     for I, CATEGORY in enumerate(legend):
-        ax.bar(POS + BAR_width * I, list(Y[CATEGORY]), width = BAR_width, alpha = OPACITY, color = colors[I], label = CATEGORY) #, error_kw = error_plot_setup)
+        ax.bar(POS + BAR_width * I, List(Y[CATEGORY]), width = BAR_width, alpha = OPACITY, color = colors[I], label = CATEGORY) #, error_kw = error_plot_setup)
     FONT = {'fontname': 'DejaVu Sans',
             'color':  labels_color,
             'weight': 'normal',
             'size': labels_size}
-    ax.set_ylabel(y_axis_label, fontdict = FONT)
-    ax.set_xlabel(x_axis_label, fontdict = FONT)
+    ax.set_ylabel(y_axis_label, fontDictionary = FONT)
+    ax.set_xlabel(x_axis_label, fontDictionary = FONT)
     ax.tick_params(axis = 'x', labelsize = x_axis_size, colors = axises_color)
     ax.tick_params(axis = 'y', labelsize = y_axis_size, colors = axises_color)
     if N_C > 1:
@@ -442,11 +464,11 @@ def pizza_chart(**kwargs):
     
     # dataset
     data = dataset['dataset']
-    data_nameS = list(data.columns)
+    data_nameS = List(data.columns)
     data_nameS = [i.upper() for i in data_nameS]
     data.columns = data_nameS
-    ELEMENTS = list(data['CATEGORY'])
-    VALUES = list(data['VALUES'])
+    ELEMENTS = List(data['CATEGORY'])
+    VALUES = List(data['VALUES'])
     # Creating autocpt arguments
     def func(pct, allvalues):
         absolute = int(pct / 100.*np.sum(allvalues))
@@ -454,8 +476,8 @@ def pizza_chart(**kwargs):
         
     # Plot
     w, h = convert_si_to_inches_in_chart_size(w, h)
-    fig, ax = plt.subplots(1, 1, figsize = (w, h), subplot_kw = dict(aspect = 'equal'))
-    wEDGES, textensions, autotextensions = ax.pie(VALUES, autopct = lambda pct: func(pct, VALUES), textensionprops = dict(color = Textension_color), colors = colors)
+    fig, ax = plt.subplots(1, 1, figsize = (w, h), subplot_kw = Dictionary(aspect = 'equal'))
+    wEDGES, textensions, autotextensions = ax.pie(VALUES, autopct = lambda pct: func(pct, VALUES), textensionprops = Dictionary(color = Textension_color), colors = colors)
     ax.legend(wEDGES, ELEMENTS, loc_legend = 'center left', bbox_to_anchor = (1, 0.5), fontsize = legend_size)
     plt.setp(autotextensions,  size = Textension_FONT_size, weight = 'bold')
     
@@ -485,29 +507,29 @@ def radar_chart(**kwargs):
     
     # data
     data = dataset['dataset']
-    data_nameS = list(data.columns)
+    data_nameS = List(data.columns)
     data_nameS = [i.lower() for i in data_nameS]
     data.columns = data_nameS
     Y = data.drop(['group'], axis = 1, inplace = False)
-    MIN_VALUE = min(list(Y.min()))
-    Max_VALUE = max(list(Y.max()))
+    MIN_VALUE = min(List(Y.min()))
+    Max_VALUE = max(List(Y.max()))
     N_DIV = 5
-    INTERVAL = (Max_VALUE - MIN_VALUE) / (N_DIV - 1)
-    RADAR_DIV = [round(MIN_VALUE + i * INTERVAL, 0) for i in range(N_DIV)]
-    RADAR_LABEL = [str(RADAR_DIV[i]) for i in range(len(RADAR_DIV))]
+    interval = (Max_VALUE - MIN_VALUE) / (N_DIV - 1)
+    RADAR_DIV = [round(MIN_VALUE + i * interval, 0) for i in range(N_DIV)]
+    RADAR_LABEL = [String(RADAR_DIV[i]) for i in range(len(RADAR_DIV))]
 
     # Plot
     w, h = convert_si_to_inches_in_chart_size(w, h)
     fig, ax = plt.subplots(1, 1, figsize = (w, h), subplot_kw = {'projection': 'polar'})
-    CATEGORIES = list(data)[1:]
+    CATEGORIES = List(data)[1:]
     N = len(CATEGORIES)
-    angles = [n / float(N) * 2 * np.pi for n in range(N)]
+    angles = [n / Float(N) * 2 * np.pi for n in range(N)]
     angles += angles[:1]
     ax.set_theta_offset(np.pi / 2)
     ax.set_theta_direction(-1)  
     plt.xticks(angles[:-1], CATEGORIES, size = RADAR_DIV_size)  
     ax.set_rlabel_position(180 / N)
-    angless = np.linspace(0, 2 * np.pi, N, endpoint = False).tolist()
+    angless = np.linspace(0, 2 * np.pi, N, endpoInteger = False).toList()
     for label, anglee in zip(ax.get_xticklabels(), angless):
         if anglee in (0, np.pi):
             label.set_horizontalalignment('center')
@@ -516,11 +538,11 @@ def radar_chart(**kwargs):
         else:
             label.set_horizontalalignment('right')
     plt.yticks(RADAR_DIV, RADAR_LABEL, color = RADAR_DIV_color, size = RADAR_DIV_size)
-    max_value = max(list(data.max())[1:])
+    max_value = max(List(data.max())[1:])
     plt.ylim(0, max_value)
-    for I in range(len(list(data['group']))):
-        GROUP = list(data['group'])
-        values=data.loc_legend[I].drop('group').values.flatten().tolist()
+    for I in range(len(List(data['group']))):
+        GROUP = List(data['group'])
+        values=data.loc_legend[I].drop('group').values.flatten().toList()
         values += values[:1]
         ax.plot(angles, values, linewidth = 2, linestyle = '--', label = GROUP[I], c = RADAR_color[I])
         ax.fill(angles, values, RADAR_color[I], alpha = OPACITY)
@@ -603,7 +625,7 @@ def treemap_chart(**kwargs):
         PERCENTE.append(round(VALUE * 100 / sum(VALUES), 2))
     labels_wITh_PERCENTE = []
     for i in range(len(VALUES)):
-        labels_wITh_PERCENTE.append(labels[i] + '\n' + str(PERCENTE[i]) + '%')
+        labels_wITh_PERCENTE.append(labels[i] + '\n' + String(PERCENTE[i]) + '%')
     squarify.plot(sizes = VALUES, label = labels_wITh_PERCENTE, color = colors, ec = 'white', textension_kwargs={'fontsize': Textension_size})
     ax.axis('off')
 
@@ -630,7 +652,7 @@ def join_hist_chart(**kwargs):
     
     # dataset
     data = dataset['dataset']
-    data_nameS = list(data.columns)
+    data_nameS = List(data.columns)
     data_nameS = [i.upper() for i in data_nameS]
     data.columns = data_nameS
     
@@ -677,10 +699,10 @@ def multiple_lines_chart(**kwargs):
     
     # dataset and others information
     data = dataset['dataset']
-    data_nameS = list(data.columns)
+    data_nameS = List(data.columns)
     data_nameS = [i.upper() for i in data_nameS]
     data.columns = data_nameS
-    X = list(data['X'])
+    X = List(data['X'])
     Y = data.drop(['X'], axis = 1, inplace = False)
     
     # Plot
@@ -700,8 +722,8 @@ def multiple_lines_chart(**kwargs):
             'color':  colors[0],
             'weight': 'normal',
             'size': labels_size}
-    ax.set_xlabel(x_axis_label, fontdict = fontx)  
-    ax.set_ylabel(Y0_axIS_LABEL, fontdict = fonty0)
+    ax.set_xlabel(x_axis_label, fontDictionary = fontx)  
+    ax.set_ylabel(Y0_axIS_LABEL, fontDictionary = fonty0)
     ax.tick_params(axis = 'x', labelsize = x_axis_size, colors = '#000000')
     ax.tick_params(axis = 'y', labelsize = y_axis_size, colors = colors[0])
     plt.legend(loc_legend = loc_legend, prop = {'size': size_legend})
@@ -710,7 +732,7 @@ def multiple_lines_chart(**kwargs):
             'color':  colors[1],
             'weight': 'normal',
             'size': labels_size}
-    ax2.set_ylabel(Y1_axIS_LABEL, fontdict = fonty1)
+    ax2.set_ylabel(Y1_axIS_LABEL, fontDictionary = fonty1)
     ax2.plot(X, Y['Y1'], marker = marker[1],  linestyle = line_style[1], linewidth = line_width, markersize = marker_size, label = legend[1], color = colors[1])
     ax2.tick_params(axis = 'y', labelsize = y_axis_size, labelcolor = colors[1])
     if grid == True:
@@ -753,7 +775,7 @@ def regplot_chart(**kwargs):
 
     # data
     data = dataset['dataset']
-    data_nameS = list(data.columns)
+    data_nameS = List(data.columns)
     data_nameS = [i.upper() for i in data_nameS]
     data.columns = data_nameS
     X = data['X']
@@ -774,8 +796,8 @@ def regplot_chart(**kwargs):
             'color':  labels_color,
             'weight': 'normal',
             'size': labels_size}
-    ax.set_ylabel(y_axis_label, fontdict = FONT)
-    ax.set_xlabel(x_axis_label, fontdict = FONT)   
+    ax.set_ylabel(y_axis_label, fontDictionary = FONT)
+    ax.set_xlabel(x_axis_label, fontDictionary = FONT)   
     ax.tick_params(axis = 'x', labelsize = x_axis_size, colors = axises_color, labelrotation = 0, direction = 'out', which = 'both', length = 10)
     ax.tick_params(axis = 'y', labelsize = y_axis_size, colors = axises_color)
     if grid == True:
@@ -844,8 +866,8 @@ def scatter_line_plot(dataset, plot_setup):
             'color':  labels_color,
             'weight': 'normal',
             'size': labels_size}
-    ax.set_ylabel(y_axis_label, fontdict=font)
-    ax.set_xlabel(x_axis_label, fontdict=font)   
+    ax.set_ylabel(y_axis_label, fontDictionary=font)
+    ax.set_xlabel(x_axis_label, fontDictionary=font)   
     ax.tick_params(axis='x', labelsize=x_axis_size, colors=axises_color, labelrotation=0, direction='out', which='both', length=10)
     ax.tick_params(axis='y', labelsize=y_axis_size, colors=axises_color)
     if grid == True:

@@ -35,15 +35,15 @@ Input variables
     <tr>
         <td><code>name</code></td>
         <td>Path + name figure</td>
-        <td>string</td>
+        <td>String</td>
     <tr>
         <td><code>extension</code></td>
         <td>File extension</td>
-        <td>string</td>
+        <td>String</td>
     <tr>
         <td><code>dots_per_inch</code></td>
         <td>The resolution in dots per inch</td>
-        <td>integer</td>
+        <td>Integer</td>
     </tr>
 </table>
 

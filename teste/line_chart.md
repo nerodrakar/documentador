@@ -12,7 +12,7 @@ has_toc: false
 <br>
 
 <p align = "justify">
-    This function shows a Multiple lines in single chart.
+    This function shows a multiple lines in single chart.
 
 
 </p>
@@ -34,36 +34,36 @@ Input variables
     </thead>
     <tr>
         <td><code>plot_setup</code></td>
-        <td>Setup chart dictionary with the following keys:</td>
-        <td>dictionary</td>
+        <td>Setup chart Dictionary with the following keys:</td>
+        <td>Dictionary</td>
     <tr>
         <td><code>name</code></td>
-        <td>Path + name figure</td>
-        <td>string</td>
+        <td>Path + name figure (key required in plot_setup)</td>
+        <td>String</td>
     <tr>
         <td><code>width</code></td>
-        <td>figure width in SI units</td>
-        <td>float</td>
+        <td>figure width in SI units (key required in plot_setup)</td>
+        <td>Float</td>
     <tr>
         <td><code>height</code></td>
-        <td>figure height in SI units</td>
-        <td>float</td>
+        <td>figure height in SI units (key required in plot_setup)</td>
+        <td>Float</td>
     <tr>
         <td><code>extension</code></td>
-        <td>File extension</td>
-        <td>string</td>
+        <td>File extension (key required in plot_setup)</td>
+        <td>String</td>
     <tr>
         <td><code>dots_per_inch</code></td>
-        <td>The resolution in dots per inch</td>
-        <td>integer</td>
+        <td>The resolution in dots per inch (key required in plot_setup)</td>
+        <td>Integer</td>
     <tr>
         <td><code>marker</code></td>
-        <td>List of markers</td>
-        <td>list</td>
+        <td>List of markers. See <a href="https://matplotlib.org/stable/gallery/lines_bars_and_markers/marker_reference.html#sphx-glr-gallery-lines-bars-and-markers-marker-reference-py" target="_blank">gallery</a> (key required in plot_setup)</td>
+        <td>List</td>
     <tr>
         <td><code>legend</code></td>
-        <td>List of legends</td>
-        <td>list</td>
+        <td>List of legends (key required in plot_setup)</td>
+        <td>List</td>
     </tr>
 </table>
 

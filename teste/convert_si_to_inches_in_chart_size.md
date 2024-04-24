@@ -14,7 +14,6 @@ has_toc: false
 <p align = "justify">
     This function convert figure dimensions from meters to inches.
 
-
 </p>
 
 ```python
@@ -35,11 +34,11 @@ Input variables
     <tr>
         <td><code>width</code></td>
         <td>figure width in inches units</td>
-        <td>float</td>
+        <td>Float</td>
     <tr>
         <td><code>height</code></td>
         <td>figure height in inches units</td>
-        <td>float</td>
+        <td>Float</td>
     </tr>
 </table>
 
@@ -57,12 +56,12 @@ Output variables
     <tr>
         <td><code>width</code></td>
         <td>figure width in inches units</td>
-        <td>float</td>
+        <td>Float</td>
     </tr>
     <tr>
         <td><code>height</code></td>
         <td>figure height in inches units</td>
-        <td>float</td>
+        <td>Float</td>
     </tr>
 </table>
 

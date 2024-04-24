@@ -12,7 +12,9 @@ has_toc: false
 <br>
 
 <p align = "justify">
-    See documentation in: https://wmpjrufg.github.io/EASYPLOTPY/001-1.html
+    This function shows a Boxplot and Histogram in a single chart.
+
+
 </p>
 
 ```python
@@ -31,9 +33,29 @@ Input variables
       </tr>
     </thead>
     <tr>
-        <td><code>**kwargs</code></td>
-        <td>Description not available.</td>
-        <td>None</td>
+        <td><code>plot_setup</code></td>
+        <td>Setup chart Dictionary with the following keys:</td>
+        <td>Dictionary</td>
+    <tr>
+        <td><code>name</code></td>
+        <td>Path + name figure (key required in plot_setup)</td>
+        <td>String</td>
+    <tr>
+        <td><code>width</code></td>
+        <td>figure width in SI units (key required in plot_setup)</td>
+        <td>Float</td>
+    <tr>
+        <td><code>height</code></td>
+        <td>figure height in SI units (key required in plot_setup)</td>
+        <td>Float</td>
+    <tr>
+        <td><code>extension</code></td>
+        <td>File extension (key required in plot_setup)</td>
+        <td>String</td>
+    <tr>
+        <td><code>bins</code></td>
+        <td>Range representing the width of a single bar (key required in plot_setup)</td>
+        <td>Integer</td>
     </tr>
 </table>
 

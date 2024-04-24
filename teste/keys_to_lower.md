@@ -12,7 +12,7 @@ has_toc: false
 <br>
 
 <p align = "justify">
-    This function converts the keys of a dictionary to lowercase.
+    This function converts the keys of a Dictionary to lowercase.
 
 
 </p>
@@ -34,8 +34,8 @@ Input variables
     </thead>
     <tr>
         <td><code>d</code></td>
-        <td>Dictionary with keys in lowercase</td>
-        <td>dictionary</td>
+        <td>Dataset with keys in lowercase</td>
+        <td>Dictionary</td>
     </tr>
 </table>
 
@@ -52,8 +52,8 @@ Output variables
     </thead>
     <tr>
         <td><code>d</code></td>
-        <td>Dictionary with keys in lowercase</td>
-        <td>dictionary</td>
+        <td>Dataset with keys in lowercase</td>
+        <td>Dictionary</td>
     </tr>
 </table>
 
